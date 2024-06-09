@@ -4,21 +4,25 @@ import { socket } from "../../socket";
 
 type Message = {
   text: string;
+  randomId: number;
 };
 
 function PublicChat() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputText, setInputText] = useState("");
   useEffect(() => {
-    // Listen for incoming messages
-    socket.on("publicMessage", (data: Message) => {
+    const handleReceiveMessage = (data: Message) => {
+      console.log(data.randomId);
       setMessages((prevMessages) => [...prevMessages, data]);
-      console.log("its happened");
-    });
+    };
+    socket.on("receiveMessage", handleReceiveMessage);
+    return () => {
+      socket.off("receiveMessage", handleReceiveMessage);
+    };
   }, []);
   const sendMessage = () => {
     if (!inputText?.trim()) return;
-    socket.emit("publicMessage", { text: inputText });
+    socket.emit("publicMessage", { text: inputText, randomId: Math.random() });
     setInputText("");
   };
   useEffect(() => console.log(messages), [messages]);
