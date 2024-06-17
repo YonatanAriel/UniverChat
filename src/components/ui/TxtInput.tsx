@@ -1,13 +1,25 @@
+import { useEffect, useRef } from "react";
+
 type Props = {
   setInputText: (text: string) => void;
+  sendMessage: () => void;
+  inputValue: string;
 };
 
-function TextInput({ setInputText }: Props) {
+function TextInput({ setInputText, sendMessage, inputValue }: Props) {
+  const inputRef = useRef<HTMLInputElement>(null);
+  useEffect(() => inputRef?.current?.focus(), []);
   return (
     <input
+      value={inputValue}
       type="text"
-      className="border-black border-2"
+      className={` border-t-2 border-t-black h-12 focus:outline-none w-full pl-5`}
       onChange={(e) => setInputText(e.target.value)}
+      onKeyDown={(e) => {
+        if (e.key === "Enter") sendMessage();
+      }}
+      placeholder="Whatcha you wanna say?"
+      ref={inputRef}
     />
   );
 }

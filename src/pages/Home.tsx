@@ -20,9 +20,9 @@ function Home() {
     };
   }, []);
   return (
-    <>
+    <div className="flex flex-wrap  px-12 pt-10 w-full h-full">
       <PublicChat />
-    </>
+    </div>
   );
 }
 

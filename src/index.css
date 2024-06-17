@@ -26,8 +26,14 @@ a {
 .movingBackground {
   background-size: 200%;
   -webkit-animation: movingBackground 5s ease infinite;
-  -moz-animation: movingBackground 5 ease infinite;
+  -moz-animation: movingBackground 5s ease infinite;
   animation: movingBackground 5s ease infinite;
+}
+.movingBackgroundSlow {
+  background-size: 300%;
+  -webkit-animation: movingBackground 15s ease infinite;
+  -moz-animation: movingBackground 15s ease infinite;
+  animation: movingBackground 15s ease infinite;
 }
 
 @keyframes movingBackground {
@@ -40,3 +46,20 @@ a {
     background-position: 100% 50%;
   }
 }
+
+/* ::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  background: transparent;
+  backdrop-filter: blur(100px);
+  border: 2px solid black;
+  max-height: 30px;
+}
+::-webkit-scrollbar {
+  width: 6px;
+  padding: 2px;
+  border-radius: 50%;
+  background: transparent;
+}
+
+::-webkit-scrollbar-track {
+} */

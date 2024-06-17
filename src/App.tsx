@@ -2,12 +2,17 @@ import "./App.css";
 import { useEffect } from "react";
 import { getAudio } from "./services/apiCalls";
 import Layout from "./components/layout/Layout";
+import ContextProvider from "./context/ContextProvider";
 
 function App() {
   useEffect(() => {
     getAudio("Hello, world!", "en-us", "0");
   }, []);
-  return <Layout />;
+  return (
+    <ContextProvider>
+      <Layout />
+    </ContextProvider>
+  );
 }
 export default App;
 

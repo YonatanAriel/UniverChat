@@ -1,10 +1,14 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Context } from "../context/ContextProvider";
+import { ContextValue } from "../types/contextValue";
+import { getUniqueId } from "../utils/getUniqueId";
 
 function Welcome() {
+  const { setName, setUserId } = useContext(Context) as ContextValue;
   const [error, setError] = useState<null | string>(null);
-  const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     inputRef.current?.focus();
@@ -12,17 +16,21 @@ function Welcome() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!inputRef.current?.value.trim()) {
+    const inputValue = inputRef.current?.value.trim();
+    if (!inputValue) {
       setError("Please enter your name");
       return;
     }
     navigate("/");
+    const uniqueId = getUniqueId();
+    setUserId(uniqueId);
+    setName(inputValue);
   };
 
   return (
-    <>
+    <div className=" w-full flex items-center h-full justify-center ">
       <form
-        className="movingBackground mx-2  bg-gradient-to-r from-rose-100 to-teal-100 shadow-xl border-black border-2 backdrop-blur-3xl flex flex-col  items-center gap-10 w-96  px-5 py-11 rounded-lg"
+        className="movingBackground mx-2  bg-gradient-to-r from-rose-100 to-teal-100 shadow-xl  border-black border-2 backdrop-blur-3xl flex flex-col  items-center gap-10 w-96 mb-16  px-5 py-11 rounded-lg"
         onSubmit={handleSubmit}
       >
         <h1 className=" text-5xl ml-auto mr-auto font-bold dark:text-white">
@@ -51,7 +59,7 @@ function Welcome() {
           Let me in
         </button>
       </form>
-    </>
+    </div>
   );
 }
 
