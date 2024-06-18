@@ -14,6 +14,7 @@ function PublicChat() {
   const [messages, setMessages] = useState<MessageType[]>([]);
   const [inputText, setInputText] = useState("");
   const msgContainerRef = useRef<HTMLUListElement>(null);
+
   useEffect(() => {
     scrollToBottom(msgContainerRef);
   }, [messages]);
@@ -41,10 +42,15 @@ function PublicChat() {
   };
 
   return (
-    <div className=" bg-gradient-to-bl overflow-y-hidden shadow-lg from-emerald-50  via-white to-red-50  border-black w-6/12 max-h-[80%] ml-auto border-2  rounded-lg relative ">
+    <div className="from-emerald-50 -z-20 via-white to-red-50  bg-gradient-to-bl overflow-y-hidden  shadow-lg  border-black w-full  lg:w-6/12 max-h-[80%] ml-auto border-2  rounded-lg relative ">
+      <img
+        className="absolute left-0 block -z-10 bottom-12 h-2/5 lg:hidden"
+        src="\rose.png"
+        alt=""
+      />
       <ul
         ref={msgContainerRef}
-        className="flex flex-col max-h-full gap-1 p-6 overflow-y-auto pb-14 "
+        className="flex flex-col max-h-full gap-1 p-1 overflow-y-auto sm:p-6 pb-14 "
       >
         {messages.map((message, i) => (
           <li key={i}>
@@ -57,7 +63,7 @@ function PublicChat() {
           </li>
         ))}
       </ul>
-      <div className="absolute bottom-0 left-0 right-0 flex bg-green-200 ">
+      <div className="absolute bottom-0 left-0 right-0 flex ">
         <TextInput
           setInputText={setInputText}
           inputValue={inputText}

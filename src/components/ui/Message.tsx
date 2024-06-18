@@ -16,7 +16,7 @@ function Message({ name, text, messageTime, senderId }: MessageType) {
     <>
       <div
         dir={`${isRtl ? "rtl" : "ltr"}`}
-        className={`flex items-start gap-2.5 `}
+        className={`flex items-start gap-2.5 z-10 `}
       >
         {/* <div className="absolute top-0 left-0 p-3 text-2xl font-bold border-b-2 border-r-2 bg-gradient-to-tl from-emerald-50 to-rose-50 rounded-tl-md rounded-br-md border-b-black border-r-black ">
            Public chat 
