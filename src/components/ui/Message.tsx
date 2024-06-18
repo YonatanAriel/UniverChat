@@ -18,33 +18,37 @@ function Message({ name, text, messageTime, senderId }: MessageType) {
         dir={`${isRtl ? "rtl" : "ltr"}`}
         className={`flex items-start gap-2.5 `}
       >
-        {/* <img className="w-8 h-8 rounded-full" src="/docs/images/people/profile-picture-3.jpg" alt="Jese image"> */}
-        <div className="border-black border-2 flex flex-col w-full max-w-[320px] leading-1.5 p-4 rounded-e-xl rounded-es-xl ">
+        {/* <div className="absolute top-0 left-0 p-3 text-2xl font-bold border-b-2 border-r-2 bg-gradient-to-tl from-emerald-50 to-rose-50 rounded-tl-md rounded-br-md border-b-black border-r-black ">
+           Public chat 
+        </div> */}
+        <img
+          className="w-8 h-8 rounded-full"
+          src="https://cdn.wamiz.fr/cdn-cgi/image/format=auto,quality=80,width=400,height=400,fit=cover/user/avatar/60104039ec50e024090406.jpg"
+          alt="Jese image"
+        />
+        <div className="border-black border-2 bg-white flex flex-col  min-w-[40%] max-w-[70%] overflow-hidden break-words  leading-1.5 p-4 rounded-e-xl rounded-es-xl ">
           <div className="flex items-center space-x-2 rtl:space-x-reverse">
             <span className="text-sm font-semibold text-gray-900 dark:text-white">
               {name}
             </span>
             <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
               {dateText}
-              {/* {`${showDate ? `${messageTime.date}/${messageTime.month}` : ""} 
-                ${messageTime.hours}:${messageTime.minutes}`} */}
             </span>
           </div>
           <p className="text-sm font-normal py-2.5 text-gray-900 dark:text-white">
             {text}
           </p>
           <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
-            Delivered
+            Delivered?
           </span>
         </div>
         <button
           id="dropdownMenuIconButton"
           data-dropdown-toggle="dropdownDots"
           data-dropdown-placement="bottom-start"
-          className="inline-flex self-center items-center p-2 text-sm font-medium text-center text-gray-900 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-900 dark:hover:bg-gray-800 dark:focus:ring-gray-600"
+          className="inline-flex items-center self-center p-2 text-sm font-medium text-center text-gray-900 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-900 dark:hover:bg-gray-800 dark:focus:ring-gray-600"
           type="button"
         >
-          2
           <svg
             className="w-4 h-4 text-gray-500 dark:text-gray-400"
             aria-hidden="true"
@@ -55,9 +59,9 @@ function Message({ name, text, messageTime, senderId }: MessageType) {
             <path d="M3.5 1.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 6.041a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 5.959a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z" />
           </svg>
         </button>
-        <div
+        {/* <div
           id="dropdownDots"
-          className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-40 dark:bg-gray-700 dark:divide-gray-600"
+          className="z-10 hidden w-40 bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
         >
           <ul
             className="py-2 text-sm text-gray-700 dark:text-gray-200"
@@ -104,7 +108,7 @@ function Message({ name, text, messageTime, senderId }: MessageType) {
               </a>
             </li>
           </ul>
-        </div>
+        </div> */}
       </div>
     </>
   );

@@ -28,19 +28,21 @@ function Welcome() {
   };
 
   return (
-    <div className=" w-full flex items-center h-full justify-center ">
+    <div className="flex items-center justify-center w-full h-full ">
+      <img
+        className="absolute -right-4 bg-transparent -bottom-2  -rotate-[35deg] h-2/5"
+        src="\rose2.png"
+        alt=""
+      />
       <form
-        className="movingBackground mx-2  bg-gradient-to-r from-rose-100 to-teal-100 shadow-xl  border-black border-2 backdrop-blur-3xl flex flex-col  items-center gap-10 w-96 mb-16  px-5 py-11 rounded-lg"
+        className="flex flex-col items-center gap-10 px-5 mx-2 mb-16 border-2 border-black rounded-lg shadow-xl movingBackground bg-gradient-to-r from-rose-100 to-teal-100 backdrop-blur-3xl w-96 py-11"
         onSubmit={handleSubmit}
       >
-        <h1 className=" text-5xl ml-auto mr-auto font-bold dark:text-white">
+        <h1 className="ml-auto mr-auto text-5xl font-bold dark:text-white">
           Welcome!
         </h1>
-        <div className="flex flex-col items-center gap-4 w-9/12">
-          <label
-            htmlFor="name"
-            className="text-lg  font-medium dark:text-white"
-          >
+        <div className="flex flex-col items-center w-9/12 gap-4">
+          <label htmlFor="name" className="text-lg font-medium dark:text-white">
             What is your name?
           </label>
           <input

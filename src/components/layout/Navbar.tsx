@@ -1,15 +1,15 @@
 function Navbar() {
   return (
-    <div className="sticky top-0 left-0 pl-10  flex gap-10 p-6 w-fit">
-      <h2 className="font-bold text-2xl">UniverChat</h2>
+    <div className="sticky top-0 left-0 flex gap-10 p-6 pl-10 w-fit">
+      <h2 className="text-2xl font-bold">UniverChat</h2>
       <a
-        className="mt-1 text-lg hover:scale-95  transition duration-100 "
+        className="mt-1 text-lg transition duration-100 hover:scale-95 "
         href="/sign-in"
       >
         Sign in
       </a>
       <a
-        className=" mt-1  text-lg hover:scale-95  transition duration-300"
+        className="mt-1 text-lg transition duration-300 hover:scale-95"
         href="sign-up"
       >
         Sign up

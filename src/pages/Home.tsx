@@ -20,7 +20,12 @@ function Home() {
     };
   }, []);
   return (
-    <div className="flex flex-wrap  px-12 pt-10 w-full h-full">
+    <div className="flex flex-wrap w-full h-full px-12 pt-10">
+      <img
+        className="absolute bottom-0 left-0 bg-transparent h-2/5"
+        src="\rose-Photoroom.png"
+        alt=""
+      />
       <PublicChat />
     </div>
   );

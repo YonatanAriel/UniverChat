@@ -1,3 +1,4 @@
+import { IoSend } from "react-icons/io5";
 import Message from "../ui/Message";
 import TextInput from "../ui/TxtInput";
 import { useContext, useEffect, useRef, useState } from "react";
@@ -39,14 +40,11 @@ function PublicChat() {
     setInputText("");
   };
 
-  useEffect(() => console.log(messages), [messages]);
-
   return (
     <div className=" bg-gradient-to-bl overflow-y-hidden shadow-lg from-emerald-50  via-white to-red-50  border-black w-6/12 max-h-[80%] ml-auto border-2  rounded-lg relative ">
       <ul
         ref={msgContainerRef}
-        // style={{ scrollbarColor: "black transparent", scrollbarWidth: "thin" }}
-        className="flex-col gap-1  flex overflow-y-auto  max-h-full pb-14 p-6 "
+        className="flex flex-col max-h-full gap-1 p-6 overflow-y-auto pb-14 "
       >
         {messages.map((message, i) => (
           <li key={i}>
@@ -59,17 +57,14 @@ function PublicChat() {
           </li>
         ))}
       </ul>
-      <div className="bg-green-200 absolute right-0 left-0 bottom-0 flex ">
+      <div className="absolute bottom-0 left-0 right-0 flex bg-green-200 ">
         <TextInput
           setInputText={setInputText}
           inputValue={inputText}
           sendMessage={sendMessage}
         />
-        <button
-          className="bg-rose-300 h-4 w-4 absolute right-8 z-10"
-          onClick={sendMessage}
-        >
-          Send
+        <button className="absolute right-0 z-10 h-full pr-4 cursor-auto ">
+          <IoSend className="cursor-pointer" onClick={sendMessage} size={25} />
         </button>
       </div>
     </div>
