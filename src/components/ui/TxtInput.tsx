@@ -13,7 +13,7 @@ function TextInput({ setInputText, sendMessage, inputValue }: Props) {
     <input
       value={inputValue}
       type="text"
-      className={` border-t-2 border-t-black h-12 focus:outline-none w-full pl-5 pr-14`}
+      className={` border-t-2 border-t-black h-12 focus:outline-none w-full pl-5 pr-14 z-20`}
       onChange={(e) => setInputText(e.target.value)}
       onKeyDown={(e) => {
         if (e.key === "Enter") sendMessage();

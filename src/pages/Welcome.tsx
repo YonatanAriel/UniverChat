@@ -6,7 +6,7 @@ import { getUniqueId } from "../utils/getUniqueId";
 import WelcomeForm from "../components/ui/WelcomeForm";
 
 function Welcome() {
-  const { setName, setUserId } = useContext(Context) as ContextValue;
+  const { setUserName, setUserId } = useContext(Context) as ContextValue;
   const [error, setError] = useState<null | string>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
@@ -25,7 +25,7 @@ function Welcome() {
     navigate("/");
     const uniqueId = getUniqueId();
     setUserId(uniqueId);
-    setName(inputValue);
+    setUserName(inputValue);
   };
 
   return (

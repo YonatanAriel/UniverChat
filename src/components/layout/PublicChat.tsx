@@ -1,80 +1,142 @@
-import { IoSend } from "react-icons/io5";
-import Message from "../ui/Message";
-import TextInput from "../ui/TxtInput";
-import { useContext, useEffect, useRef, useState } from "react";
-import { Context } from "../../context/ContextProvider";
-import { socket } from "../../socket";
-import { getDateData } from "../../utils/getDateData";
-import { ContextValue } from "../../types/contextValue";
-import { MessageType } from "../../types/MessageType";
-import { scrollToBottom } from "../../utils/scrollToBottom";
+import ChatBox from "../ui/ChatBox";
 
 function PublicChat() {
-  const { name, userId } = useContext(Context) as ContextValue;
-  const [messages, setMessages] = useState<MessageType[]>([]);
-  const [inputText, setInputText] = useState("");
-  const msgContainerRef = useRef<HTMLUListElement>(null);
-
-  useEffect(() => {
-    scrollToBottom(msgContainerRef);
-  }, [messages]);
-
-  useEffect(() => {
-    const handleReceiveMessage = (data: MessageType) => {
-      setMessages((prevMessages) => [...prevMessages, data]);
-    };
-    socket.on("receiveMessage", handleReceiveMessage);
-    return () => {
-      socket.off("receiveMessage", handleReceiveMessage);
-    };
-  }, []);
-
-  const sendMessage = () => {
-    if (!inputText?.trim()) return;
-    const messageData: MessageType = {
-      text: inputText,
-      name,
-      messageTime: getDateData(),
-      senderId: userId,
-    };
-    socket.emit("publicMessage", messageData);
-    setInputText("");
-  };
-
-  return (
-    <div className="from-emerald-50 -z-20 via-white to-red-50  bg-gradient-to-bl overflow-y-hidden  shadow-lg  border-black w-full  lg:w-6/12 max-h-[80%] ml-auto border-2  rounded-lg relative ">
-      <img
-        className="absolute left-0 block -z-10 bottom-12 h-2/5 lg:hidden"
-        src="\rose.png"
-        alt=""
-      />
-      <ul
-        ref={msgContainerRef}
-        className="flex flex-col max-h-full gap-1 p-1 overflow-y-auto sm:p-6 pb-14 "
-      >
-        {messages.map((message, i) => (
-          <li key={i}>
-            <Message
-              text={message.text}
-              name={message.name}
-              messageTime={message.messageTime}
-              senderId={message.senderId}
-            />
-          </li>
-        ))}
-      </ul>
-      <div className="absolute bottom-0 left-0 right-0 flex ">
-        <TextInput
-          setInputText={setInputText}
-          inputValue={inputText}
-          sendMessage={sendMessage}
-        />
-        <button className="absolute right-0 z-10 h-full pr-4 cursor-auto ">
-          <IoSend className="cursor-pointer" onClick={sendMessage} size={25} />
-        </button>
-      </div>
-    </div>
-  );
+  return <ChatBox messageType={"publicMessage"} />;
 }
 
 export default PublicChat;
+
+//formik example:
+// import React from 'react';
+// import ReactDOM from 'react-dom';
+// import { Formik, Form, useField } from 'formik';
+// import * as Yup from 'yup';
+
+// const MyTextInput = ({ label, ...props }) => {
+// useField() returns [formik.getFieldProps(), formik.getFieldMeta()]
+// which we can spread on <input>. We can use field meta to show an error
+// message if the field is invalid and it has been touched (i.e. visited)
+//   const [field, meta] = useField(props);
+//   return (
+//     <>
+//       <label htmlFor={props.id || props.name}>{label}</label>
+//       <input className="text-input" {...field} {...props} />
+//       {meta.touched && meta.error ? (
+//         <div className="error">{meta.error}</div>
+//       ) : null}
+//     </>
+//   );
+// };
+
+// const MyCheckbox = ({ children, ...props }) => {
+//   // React treats radios and checkbox inputs differently from other input types: select and textarea.
+//   // Formik does this too! When you specify `type` to useField(), it will
+//   // return the correct bag of props for you -- a `checked` prop will be included
+//   // in `field` alongside `name`, `value`, `onChange`, and `onBlur`
+//   const [field, meta] = useField({ ...props, type: 'checkbox' });
+//   return (
+//     <div>
+//       <label className="checkbox-input">
+//         <input type="checkbox" {...field} {...props} />
+//         {children}
+//       </label>
+//       {meta.touched && meta.error ? (
+//         <div className="error">{meta.error}</div>
+//       ) : null}
+//     </div>
+//   );
+// };
+
+// const MySelect = ({ label, ...props }) => {
+//   const [field, meta] = useField(props);
+//   return (
+//     <div>
+//       <label htmlFor={props.id || props.name}>{label}</label>
+//       <select {...field} {...props} />
+//       {meta.touched && meta.error ? (
+//         <div className="error">{meta.error}</div>
+//       ) : null}
+//     </div>
+//   );
+// };
+
+// // And now we can use these
+// const SignupForm = () => {
+//   return (
+//     <>
+//       <h1>Subscribe!</h1>
+//       <Formik
+//         initialValues={{
+//           firstName: '',
+//           lastName: '',
+//           email: '',
+//           acceptedTerms: false, // added for our checkbox
+//           jobType: '', // added for our select
+//         }}
+//         validationSchema={Yup.object({
+//           firstName: Yup.string()
+//             .max(15, 'Must be 15 characters or less')
+//             .required('Required'),
+//           lastName: Yup.string()
+//             .max(20, 'Must be 20 characters or less')
+//             .required('Required'),
+//           email: Yup.string()
+//             .email('Invalid email address')
+//             .required('Required'),
+//           acceptedTerms: Yup.boolean()
+//             .required('Required')
+//             .oneOf([true], 'You must accept the terms and conditions.'),
+//           jobType: Yup.string()
+//             .oneOf(
+//               ['designer', 'development', 'product', 'other'],
+//               'Invalid Job Type'
+//             )
+//             .required('Required'),
+//         })}
+//         onSubmit={(values, { setSubmitting }) => {
+//           setTimeout(() => {
+//             alert(JSON.stringify(values, null, 2));
+//             setSubmitting(false);
+//           }, 400);
+//         }}
+//       >
+//         <Form>
+//           <MyTextInput
+//             label="First Name"
+//             name="firstName"
+//             type="text"
+//             placeholder="Jane"
+//           />
+
+//           <MyTextInput
+//             label="Last Name"
+//             name="lastName"
+//             type="text"
+//             placeholder="Doe"
+//           />
+
+//           <MyTextInput
+//             label="Email Address"
+//             name="email"
+//             type="email"
+//             placeholder="jane@formik.com"
+//           />
+
+//           <MySelect label="Job Type" name="jobType">
+//             <option value="">Select a job type</option>
+//             <option value="designer">Designer</option>
+//             <option value="development">Developer</option>
+//             <option value="product">Product Manager</option>
+//             <option value="other">Other</option>
+//           </MySelect>
+
+//           <MyCheckbox name="acceptedTerms">
+//             I accept the terms and conditions
+//           </MyCheckbox>
+
+//           <button type="submit">Submit</button>
+//         </Form>
+//       </Formik>
+//     </>
+//   );
+// };

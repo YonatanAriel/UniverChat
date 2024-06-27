@@ -5,9 +5,15 @@ import { ContextValue } from "../../types/contextValue";
 import { useContext, useMemo } from "react";
 import { formatDateText } from "../../utils/formatDateText";
 
-function Message({ name, text, messageTime, senderId }: MessageType) {
+function Message({
+  userName,
+  msgText,
+  messageTime,
+  localSenderId,
+}: MessageType) {
   const { userId } = useContext(Context) as ContextValue;
-  const isRtl = userId === senderId;
+  // const isRtl = userId === senderId;
+  const isRtl = userId === localSenderId;
   const { date, month } = useMemo(() => getDateData(), []);
   const showDate = !(month === messageTime.month && date === messageTime.date);
   const dateText = formatDateText(messageTime, showDate);
@@ -16,7 +22,7 @@ function Message({ name, text, messageTime, senderId }: MessageType) {
     <>
       <div
         dir={`${isRtl ? "rtl" : "ltr"}`}
-        className={`flex items-start gap-2.5 z-10 `}
+        className={`flex items-start gap-2.5 `}
       >
         {/* <div className="absolute top-0 left-0 p-3 text-2xl font-bold border-b-2 border-r-2 bg-gradient-to-tl from-emerald-50 to-rose-50 rounded-tl-md rounded-br-md border-b-black border-r-black ">
            Public chat 
@@ -26,17 +32,17 @@ function Message({ name, text, messageTime, senderId }: MessageType) {
           src="https://cdn.wamiz.fr/cdn-cgi/image/format=auto,quality=80,width=400,height=400,fit=cover/user/avatar/60104039ec50e024090406.jpg"
           alt="Jese image"
         />
-        <div className="border-black border-2 bg-white flex flex-col  min-w-[40%] max-w-[70%] overflow-hidden break-words  leading-1.5 p-4 rounded-e-xl rounded-es-xl ">
+        <div className="border-black border-2 bg-white flex flex-col z-10   min-w-[40%] md:max-w-[70%] overflow-hidden break-words  leading-1.5 p-4 rounded-e-xl rounded-es-xl ">
           <div className="flex items-center space-x-2 rtl:space-x-reverse">
             <span className="text-sm font-semibold text-gray-900 dark:text-white">
-              {name}
+              {userName}
             </span>
             <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
               {dateText}
             </span>
           </div>
           <p className="text-sm font-normal py-2.5 text-gray-900 dark:text-white">
-            {text}
+            {msgText}
           </p>
           <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
             Delivered?
