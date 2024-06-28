@@ -1,11 +1,10 @@
-import { DateData } from "./DateData";
+// import { DateData } from "./DateData";
 
 export type MessageType = {
   id?: number;
   chatRoomId?: number;
   msgText: string;
-  userName: string;
-  messageTime: DateData;
+  userName?: string;
   sqlUserId?: number;
   timestamp: Date;
   localSenderId: string;

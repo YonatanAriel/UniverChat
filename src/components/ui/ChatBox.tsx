@@ -4,7 +4,7 @@ import TextInput from "../ui/TxtInput";
 import { useContext, useEffect, useRef, useState } from "react";
 import { Context } from "../../context/ContextProvider";
 import { socket } from "../../socket";
-import { getDateData } from "../../utils/getDateData";
+// import { getDateData } from "../../utils/getDateData";
 import { ContextValue } from "../../types/contextValue";
 import { MessageType } from "../../types/MessageType";
 import { scrollToBottom } from "../../utils/scrollToBottom";
@@ -38,7 +38,7 @@ function ChatBox({ messageType }: PropsType) {
     const messageData: MessageType = {
       msgText: inputText,
       userName,
-      messageTime: getDateData(),
+      // messageTime: getDateData(),
       localSenderId: userId,
       timestamp: new Date(),
     };
@@ -62,7 +62,7 @@ function ChatBox({ messageType }: PropsType) {
             <Message
               msgText={message.msgText}
               userName={message.userName}
-              messageTime={message.messageTime}
+              // messageTime={message.messageTime}
               localSenderId={message.localSenderId}
               timestamp={message.timestamp}
             />

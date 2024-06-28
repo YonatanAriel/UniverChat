@@ -7,9 +7,11 @@ function Layout() {
   const backgroundColor =
     location === "/welcome"
       ? "roseToWhiteGradient"
+      : location === "/sign-up"
+      ? "tealToWhiteGradient"
       : " movingBackgroundSlow bg-gradient-to-br from-rose-100 via-white to-teal-100 ";
   return (
-    <div className={`${backgroundColor} fixed inset-0 `}>
+    <div className={`${backgroundColor} fixed inset-0 overflow-y-auto `}>
       <Navbar />
       <MainRoutes />
     </div>

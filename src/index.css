@@ -23,6 +23,15 @@ a {
 .roseToWhiteGradient {
   background: linear-gradient(310deg, rgba(255, 255, 255, 1) 78%, #fff1f2 85%);
 }
+.tealToWhiteGradient {
+  background: linear-gradient(
+    320deg,
+    rgba(255, 255, 255, 1) 78%,
+    rgba(207, 255, 244, 0.746) 100%
+  );
+}
+/* rgba(162, 246, 221, 0.4462423201702556) 100% */
+
 .movingBackground {
   background-size: 200%;
   -webkit-animation: movingBackground 5s ease infinite;
@@ -46,20 +55,8 @@ a {
     background-position: 100% 50%;
   }
 }
-
-/* ::-webkit-scrollbar-thumb {
-  border-radius: 8px;
-  background: transparent;
-  backdrop-filter: blur(100px);
-  border: 2px solid black;
-  max-height: 30px;
+@layer components {
+  .text-input {
+    @apply border-black bg-white border-2 text-gray-900 text-sm rounded-lg focus:ring-black  block w-full p-2.5;
+  }
 }
-::-webkit-scrollbar {
-  width: 6px;
-  padding: 2px;
-  border-radius: 50%;
-  background: transparent;
-}
-
-::-webkit-scrollbar-track {
-} */

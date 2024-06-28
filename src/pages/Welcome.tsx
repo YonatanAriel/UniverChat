@@ -29,9 +29,9 @@ function Welcome() {
   };
 
   return (
-    <div className="flex items-center justify-center w-full h-full ">
+    <div className="flex items-center justify-center w-full ">
       <img
-        className="absolute -right-4 bg-transparent -bottom-2 max-h-32 md:max-h-none -rotate-[35deg] h-2/5"
+        className="fixed -right-4 bg-transparent -bottom-2 max-h-32 md:max-h-none -rotate-[35deg] h-2/5"
         src="\rose2.png"
         alt=""
       />
