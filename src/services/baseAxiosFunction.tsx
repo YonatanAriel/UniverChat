@@ -1,0 +1,45 @@
+import axios, { AxiosResponse } from "axios";
+
+type ApiResponse<T> = T;
+type HttpMethod = "GET" | "POST" | "PUT" | "DELETE";
+
+axios.defaults.baseURL = "http://localhost:4000";
+
+const api = {
+  get: async <T,>(url: string): Promise<ApiResponse<T>> => {
+    return apiCalls<T>("GET", url);
+  },
+  post: async <T,>(url: string, data: unknown): Promise<ApiResponse<T>> => {
+    return apiCalls<T>("POST", url, data);
+  },
+  put: async <T,>(url: string, data: unknown): Promise<ApiResponse<T>> => {
+    return apiCalls<T>("PUT", url, data);
+  },
+  delete: async <T,>(url: string): Promise<ApiResponse<T>> => {
+    return apiCalls<T>("DELETE", url);
+  },
+};
+async function apiCalls<T>(
+  method: HttpMethod,
+  url: string,
+  data?: unknown
+): Promise<ApiResponse<T>> {
+  const res: AxiosResponse<T> = await axios({
+    headers: {
+      Authorization: localStorage.token && `Bearer ${localStorage.token}`,
+    },
+    method,
+    url,
+    data,
+  });
+  return res.data;
+}
+
+export default api;
+
+// interface LoginResponse {
+//   token: string;
+// }
+// const userData = { username: "gery", password: "f7123hu" };
+// const loginToken = await api.post<LoginResponse>(`users/login`, userData);
+// console.log(loginToken);
