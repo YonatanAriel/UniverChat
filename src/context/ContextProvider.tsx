@@ -6,16 +6,20 @@ export const Context = createContext<ContextValue | undefined>(undefined);
 
 function ContextProvider({ children }: { children: ReactNode }) {
   const [userName, setUserName] = useState("");
-  const [userId, setUserId] = useLocalStorage<string>("univerChatUserId");
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [token, setToken] = useLocalStorage<string>("univerChatToken");
+  const [localUserId, setLocalUserId] =
+    useLocalStorage<string>("univerChatUserId");
+  const [userSQLId, setUserSQLId] = useState<number | null>(null);
 
   const contextValue: ContextValue = {
     userName,
     setUserName,
-    userId,
-    setUserId,
-    isLoggedIn,
-    setIsLoggedIn,
+    localUserId,
+    setLocalUserId,
+    token,
+    setToken,
+    userSQLId,
+    setUserSQLId,
   };
   return <Context.Provider value={contextValue}>{children}</Context.Provider>;
 }

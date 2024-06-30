@@ -6,8 +6,8 @@ import { useContext, useMemo } from "react";
 import { formatDateText } from "../../utils/formatDateText";
 
 function Message({ userName, msgText, localSenderId, timestamp }: MessageType) {
-  const { userId } = useContext(Context) as ContextValue;
-  const isRtl = userId === localSenderId;
+  const { localUserId } = useContext(Context) as ContextValue;
+  const isRtl = localUserId === localSenderId;
   const { date, month } = useMemo(() => getDateData(), []);
   const messageTime = useMemo(() => getDateData(timestamp), [timestamp]);
   const showDate = !(month === messageTime.month && date === messageTime.date);

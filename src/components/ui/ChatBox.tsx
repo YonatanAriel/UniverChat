@@ -14,7 +14,7 @@ type PropsType = {
 };
 
 function ChatBox({ messageType }: PropsType) {
-  const { userName, userId } = useContext(Context) as ContextValue;
+  const { userName, localUserId } = useContext(Context) as ContextValue;
   const [messages, setMessages] = useState<MessageType[]>([]);
   const [inputText, setInputText] = useState("");
   const msgContainerRef = useRef<HTMLUListElement>(null);
@@ -39,7 +39,7 @@ function ChatBox({ messageType }: PropsType) {
       msgText: inputText,
       userName,
       // messageTime: getDateData(),
-      localSenderId: userId,
+      localSenderId: localUserId,
       timestamp: new Date(),
     };
     socket.emit(messageType, messageData);

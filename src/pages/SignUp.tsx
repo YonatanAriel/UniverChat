@@ -2,39 +2,83 @@ import { FieldErrors, useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
 import { formValidation } from "../utils/validation";
 import Loading from "../components/ui/Loading";
+import { useContext, useEffect, useState } from "react";
+import api from "../services/baseAxiosFunction";
+import { getUniqueId } from "../utils/getUniqueId";
+import { SignUpFormValues } from "../types/SignUpFormValues";
+import { createFormData } from "../utils/createFormData";
+import { Context } from "../context/ContextProvider";
+import { ContextValue } from "../types/contextValue";
+import { useNavigate } from "react-router-dom";
 
-type FormValues = {
-  username: string;
-  photo: FileList;
-  password: string;
+type ApiResponse = {
+  error?: string;
+  token?: string;
+  userSQLId?: number;
 };
+
 function SignUp() {
   //email? with google?
+  const { setToken, setUserSQLId } = useContext(Context) as ContextValue;
+  const [showLoading, setShowLoading] = useState(false);
+  const navigate = useNavigate();
 
-  const form = useForm<FormValues>({ mode: "onTouched" });
-  const { register, control, handleSubmit, formState } = form;
+  const form = useForm<SignUpFormValues>({ mode: "onTouched" });
+  const { register, control, handleSubmit, formState, setFocus, setError } =
+    form;
   const { errors, isDirty, isValid, isSubmitting } = formState;
   const buttonDisabled = !isDirty || !isValid || isSubmitting;
 
-  const onSubmit = (data: FormValues) => {
-    console.log(data);
+  useEffect(() => {
+    setFocus("userName");
+  }, [setFocus]);
+
+  const onSubmit = (data: SignUpFormValues) => {
+    setShowLoading(true);
+    const uniqueId = getUniqueId();
+    data.clientId = uniqueId;
+    const formData = createFormData(data);
+    signUp(formData);
   };
 
-  const onError = (errors: FieldErrors<FormValues>) => {
+  async function signUp(formData: FormData) {
+    const response = await api.post<ApiResponse>("/users/sign-up", formData, {
+      "Content-Type": "multipart/form-data",
+    });
+    if (response?.error) handleError(response);
+    if (response?.token && response?.userSQLId) handleSuccess(response);
+  }
+
+  function handleSuccess(response: ApiResponse) {
+    setToken(String(response.token));
+    setUserSQLId(Number(response.userSQLId));
+    setShowLoading(false);
+    navigate("/");
+  }
+
+  function handleError(response: ApiResponse) {
+    setError("userName", { type: "custom", message: response.error });
+    setShowLoading(false);
+  }
+
+  const onError = (errors: FieldErrors<SignUpFormValues>) => {
     console.log(errors);
   };
+
   return (
     <div className="flex items-center justify-center w-full ">
-      {isSubmitting && <Loading />}
+      {(isSubmitting || showLoading) && <Loading />}
       <img
-        className="fixed -z-10 -top-4 bg-transparent -right-4 -rotate-[120deg]  max-h-32 md:max-h-none h-2/5"
+        className="fixed -z-10 -top-6 bg-transparent -right-4 -rotate-[120deg]  h-2/5 max-h-32  md:max-h-none "
         src="\rose7.png"
         alt=""
       />
       <form
+        method="post"
+        encType={"multipart/form-data"}
         onSubmit={handleSubmit(onSubmit, onError)}
         className={`flex flex-col gap-3 px-6 py-11  border-2 w-96 mx-2  border-black rounded-md xl:w-[30%] mt-16 mb-20 bg-gradient-to-b from-rose-50 to-emerald-50 ${
-          isSubmitting && "blur-md"
+          (isSubmitting || showLoading) && "blur-md"
         }`}
         noValidate
       >
@@ -43,7 +87,7 @@ function SignUp() {
         </h1>
         <div className="flex flex-col gap-1">
           <label
-            htmlFor="username"
+            htmlFor="userName"
             className="block mb-1 text-sm font-medium text-black"
           >
             User name
@@ -51,10 +95,10 @@ function SignUp() {
           <input
             className="text-input"
             type="text"
-            id="username"
-            {...register("username", formValidation.userName)}
+            id="userName"
+            {...register("userName", formValidation.userName)}
           />
-          <p className="text-rose-400">{errors.username?.message}</p>
+          <p className="text-rose-400">{errors.userName?.message}</p>
         </div>
 
         <div className="flex flex-col gap-1 ">
@@ -76,15 +120,16 @@ function SignUp() {
         <div className="flex flex-col gap-1 ">
           <label
             htmlFor="photo"
-            className="block mb-1 text-sm font-medium text-black"
+            className="block mb-1 text-sm font-medium text-black "
           >
             Profile photo
           </label>
           <input
             type="file"
             id="photo"
+            accept="image/*"
             {...register("photo")}
-            className="block w-full text-sm bg-white border-2 border-black rounded-lg focus:z-10 focus:border-black focus:ring-black-500 disabled:opacity-50 disabled:pointer-events-none file:border-0 file:border-black file:border-r-2 file:me-4 file:py-2.5 file:px-2 "
+            className="block w-full text-sm  bg-white border-2 border-black rounded-lg focus:z-10 focus:border-black focus:ring-black-500 disabled:opacity-50 disabled:pointer-events-none file:border-0 file:border-black file:border-r-2 file:me-4 file:py-2.5 file:px-2 "
           />
           <p className="text-red-500">{errors.photo?.message}</p>
         </div>

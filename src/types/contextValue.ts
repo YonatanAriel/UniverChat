@@ -1,8 +1,10 @@
 export type ContextValue = {
   userName: string;
   setUserName: (value: string) => void;
-  userId: string;
-  setUserId: (value: string) => void;
-  isLoggedIn: boolean;
-  setIsLoggedIn: (value: boolean) => void;
+  localUserId: string;
+  setLocalUserId: (value: string) => void;
+  token: string;
+  setToken: (value: string) => void;
+  userSQLId: number | null;
+  setUserSQLId: (value: number) => void;
 };

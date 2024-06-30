@@ -6,27 +6,43 @@ type HttpMethod = "GET" | "POST" | "PUT" | "DELETE";
 axios.defaults.baseURL = "http://localhost:4000";
 
 const api = {
-  get: async <T,>(url: string): Promise<ApiResponse<T>> => {
-    return apiCalls<T>("GET", url);
+  get: async <T,>(
+    url: string,
+    headers?: Record<string, string>
+  ): Promise<ApiResponse<T>> => {
+    return apiCalls<T>("GET", url, undefined, headers);
   },
-  post: async <T,>(url: string, data: unknown): Promise<ApiResponse<T>> => {
-    return apiCalls<T>("POST", url, data);
+  post: async <T,>(
+    url: string,
+    data: unknown,
+    headers?: Record<string, string>
+  ): Promise<ApiResponse<T>> => {
+    return apiCalls<T>("POST", url, data, headers);
   },
-  put: async <T,>(url: string, data: unknown): Promise<ApiResponse<T>> => {
-    return apiCalls<T>("PUT", url, data);
+  put: async <T,>(
+    url: string,
+    data: unknown,
+    headers?: Record<string, string>
+  ): Promise<ApiResponse<T>> => {
+    return apiCalls<T>("PUT", url, data, headers);
   },
-  delete: async <T,>(url: string): Promise<ApiResponse<T>> => {
-    return apiCalls<T>("DELETE", url);
+  delete: async <T,>(
+    url: string,
+    headers?: Record<string, string>
+  ): Promise<ApiResponse<T>> => {
+    return apiCalls<T>("DELETE", url, undefined, headers);
   },
 };
 async function apiCalls<T>(
   method: HttpMethod,
   url: string,
-  data?: unknown
+  data?: unknown,
+  headers: Record<string, string> = {}
 ): Promise<ApiResponse<T>> {
   const res: AxiosResponse<T> = await axios({
     headers: {
       Authorization: localStorage.token && `Bearer ${localStorage.token}`,
+      ...headers,
     },
     method,
     url,

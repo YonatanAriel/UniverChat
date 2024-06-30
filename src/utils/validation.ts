@@ -11,14 +11,14 @@ export const formValidation = {
     },
   },
   password: {
-    required: "password is required",
+    required: "Password is required",
     minLength: {
       value: 6,
       message: "Password must contain at least 6 characters",
     },
     maxLength: {
-      value: 50,
-      message: "Password can't contain more then 50 characters",
+      value: 20,
+      message: "Password can't contain more then 20 characters",
     },
     pattern: {
       value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/,
@@ -26,4 +26,14 @@ export const formValidation = {
         "The password must contain least one uppercase letter, one lowercase letter,\n one number and one special character",
     },
   },
+};
+
+export const isPhotoFile = (file: FileList): boolean | string => {
+  if (file.length === 0) return "No file choosen";
+
+  const fileName = file[0].name;
+  const allowedExtensions = ["jpg", "png", "gif", "jpeg"];
+  const fileExtension = fileName.split(".").pop()?.toLowerCase();
+
+  return allowedExtensions.includes(fileExtension || "");
 };
