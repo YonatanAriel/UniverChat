@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { getAudio } from "./services/apiCalls";
 import Layout from "./components/layout/Layout";
 import ContextProvider from "./context/ContextProvider";
+import Loading from "./components/ui/Loading";
 
 function App() {
   useEffect(() => {
@@ -11,6 +12,7 @@ function App() {
 
   return (
     <ContextProvider>
+      <Loading />
       <Layout />
     </ContextProvider>
   );
