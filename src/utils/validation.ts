@@ -21,7 +21,7 @@ export const formValidation = {
       message: "Password can't contain more then 20 characters",
     },
     pattern: {
-      value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/,
+      value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{6,}$/,
       message:
         "The password must contain least one uppercase letter, one lowercase letter,\n one number and one special character",
     },

@@ -45,18 +45,20 @@ function SignUp() {
     const response = await api.post<ApiResponse>("/users/sign-up", formData, {
       "Content-Type": "multipart/form-data",
     });
-    if (response?.error) handleError(response);
+    if (response?.error) handleServerError(response);
     if (response?.token && response?.userSQLId) handleSuccess(response);
   }
 
   function handleSuccess(response: ApiResponse) {
+    console.log(response.token);
     setToken(String(response.token));
     setUserSQLId(Number(response.userSQLId));
     setShowLoading(false);
     navigate("/");
   }
 
-  function handleError(response: ApiResponse) {
+  function handleServerError(response: ApiResponse) {
+    console.log(response.error);
     setError("userName", { type: "custom", message: response.error });
     setShowLoading(false);
   }
