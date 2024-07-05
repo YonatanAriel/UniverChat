@@ -7,12 +7,13 @@ import { socket } from "../../socket";
 import { ContextValue } from "../../types/contextValue";
 import { MessageType } from "../../types/MessageType";
 import { scrollToBottom } from "../../utils/scrollToBottom";
+import { MessageClass } from "../../classes/Message";
 
 type PropsType = {
-  messageType: string;
+  room: string;
 };
 
-function ChatBox({ messageType }: PropsType) {
+function ChatBox({ room }: PropsType) {
   const { userName, userId } = useContext(Context) as ContextValue;
   const [messages, setMessages] = useState<MessageType[]>([]);
   const [inputText, setInputText] = useState("");
@@ -24,23 +25,26 @@ function ChatBox({ messageType }: PropsType) {
 
   useEffect(() => {
     const handleReceiveMessage = (data: MessageType) => {
+      console.log("reserved - " + data);
       setMessages((prevMessages) => [...prevMessages, data]);
     };
-    socket.on("receiveMessage", handleReceiveMessage);
+    socket.on("receive message", handleReceiveMessage);
     return () => {
-      socket.off("receiveMessage", handleReceiveMessage);
+      socket.off("receive message", handleReceiveMessage);
     };
   }, []);
 
   const sendMessage = () => {
     if (!inputText?.trim()) return;
-    const messageData: MessageType = {
+    const messageData = new MessageClass({
       msgText: inputText,
       userName,
       userId,
-      timestamp: new Date(),
-    };
-    socket.emit(messageType, messageData);
+      to: room,
+      isPrivate: false,
+    });
+
+    socket.emit("send message", messageData);
     setInputText("");
   };
 

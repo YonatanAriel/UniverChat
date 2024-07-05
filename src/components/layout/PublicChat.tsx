@@ -4,13 +4,13 @@ import ChatBox from "../ui/ChatBox";
 
 function PublicChat() {
   useEffect(() => {
-    socket.emit("joinRoom", "publicRoom");
+    socket.emit("joinRoom", "public");
 
     return () => {
-      socket.emit("leaveRoom", "publicRoom");
+      socket.emit("leaveRoom", "public");
     };
   }, []);
-  return <ChatBox messageType={"publicMessage"} />;
+  return <ChatBox room={"public"} />;
 }
 
 export default PublicChat;

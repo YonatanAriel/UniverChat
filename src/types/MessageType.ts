@@ -5,13 +5,8 @@ export type MessageType = {
   chatRoomId?: number;
   msgText: string;
   userName?: string;
-  timestamp: Date;
+  timestamp?: Date;
   userId?: number | string | null;
+  to?: string;
+  isPrivate?: boolean;
 };
-
-// id?: number;
-// chatRoomId?: number;
-// userId?: number;
-// msgText: string;
-// timestamp: number;
-// messageTime: DateData;

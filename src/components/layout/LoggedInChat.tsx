@@ -4,13 +4,13 @@ import ChatBox from "../ui/ChatBox";
 
 function LoggedInChat() {
   useEffect(() => {
-    socket.emit("joinRoom", "loggedInRoom");
+    socket.emit("joinRoom", "loggedInPublic");
     return () => {
-      socket.emit("leaveRoom", "loggedInRoom");
+      socket.emit("leaveRoom", "loggedInPublic");
     };
   }, []);
 
-  return <ChatBox messageType="loggedInPublicMessage" />;
+  return <ChatBox room="loggedInPublic" />;
 }
 
 export default LoggedInChat;
