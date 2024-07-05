@@ -39,16 +39,21 @@ async function apiCalls<T>(
   data?: unknown,
   headers: Record<string, string> = {}
 ): Promise<ApiResponse<T>> {
-  const res: AxiosResponse<T> = await axios({
-    headers: {
-      Authorization: localStorage.token && `Bearer ${localStorage.token}`,
-      ...headers,
-    },
-    method,
-    url,
-    data,
-  });
-  return res.data;
+  try {
+    const res: AxiosResponse<T> = await axios({
+      headers: {
+        Authorization: localStorage.token && `Bearer ${localStorage.token}`,
+        ...headers,
+      },
+      method,
+      url,
+      data,
+    });
+    return res.data;
+  } catch (error) {
+    console.log(error);
+    throw new Error(String(error));
+  }
 }
 
 export default api;

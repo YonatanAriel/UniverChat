@@ -1,8 +1,12 @@
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { socket } from "../socket";
 import PublicChat from "../components/layout/PublicChat";
+import { Context } from "../context/ContextProvider";
+import { ContextValue } from "../types/contextValue";
+import LoggedInChat from "../components/layout/LoggedInChat";
 
 function Home() {
+  const { isUserLoggedIn } = useContext(Context) as ContextValue;
   useEffect(() => {
     const handleConnect = () => {
       console.log(socket.id, "user connected");
@@ -19,6 +23,7 @@ function Home() {
       socket.off("connect_error", handleConnectError);
     };
   }, []);
+
   return (
     <div className="flex flex-wrap w-full h-full px-2 pt-10 sm:px-12 ">
       <img
@@ -26,7 +31,7 @@ function Home() {
         src="\rose.png"
         alt=""
       />
-      <PublicChat />
+      {isUserLoggedIn ? <LoggedInChat /> : <PublicChat />}
     </div>
   );
 }

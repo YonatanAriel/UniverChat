@@ -4,7 +4,6 @@ import TextInput from "../ui/TxtInput";
 import { useContext, useEffect, useRef, useState } from "react";
 import { Context } from "../../context/ContextProvider";
 import { socket } from "../../socket";
-// import { getDateData } from "../../utils/getDateData";
 import { ContextValue } from "../../types/contextValue";
 import { MessageType } from "../../types/MessageType";
 import { scrollToBottom } from "../../utils/scrollToBottom";
@@ -14,7 +13,7 @@ type PropsType = {
 };
 
 function ChatBox({ messageType }: PropsType) {
-  const { userName, localUserId } = useContext(Context) as ContextValue;
+  const { userName, userId } = useContext(Context) as ContextValue;
   const [messages, setMessages] = useState<MessageType[]>([]);
   const [inputText, setInputText] = useState("");
   const msgContainerRef = useRef<HTMLUListElement>(null);
@@ -38,8 +37,7 @@ function ChatBox({ messageType }: PropsType) {
     const messageData: MessageType = {
       msgText: inputText,
       userName,
-      // messageTime: getDateData(),
-      localSenderId: localUserId,
+      userId,
       timestamp: new Date(),
     };
     socket.emit(messageType, messageData);
@@ -62,8 +60,7 @@ function ChatBox({ messageType }: PropsType) {
             <Message
               msgText={message.msgText}
               userName={message.userName}
-              // messageTime={message.messageTime}
-              localSenderId={message.localSenderId}
+              senderId={message.userId}
               timestamp={message.timestamp}
             />
           </li>

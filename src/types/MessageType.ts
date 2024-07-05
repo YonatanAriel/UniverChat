@@ -5,9 +5,8 @@ export type MessageType = {
   chatRoomId?: number;
   msgText: string;
   userName?: string;
-  sqlUserId?: number;
   timestamp: Date;
-  localSenderId: string;
+  userId?: number | string | null;
 };
 
 // id?: number;

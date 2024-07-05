@@ -5,9 +5,13 @@ import { ContextValue } from "../../types/contextValue";
 import { useContext, useMemo } from "react";
 import { formatDateText } from "../../utils/formatDateText";
 
-function Message({ userName, msgText, localSenderId, timestamp }: MessageType) {
-  const { localUserId } = useContext(Context) as ContextValue;
-  const isRtl = localUserId === localSenderId;
+interface Props extends MessageType {
+  senderId: number | string | null | undefined;
+}
+
+function Message({ userName, msgText, senderId, timestamp }: Props) {
+  const { userId } = useContext(Context) as ContextValue;
+  const isRtl = userId === senderId;
   const { date, month } = useMemo(() => getDateData(), []);
   const messageTime = useMemo(() => getDateData(timestamp), [timestamp]);
   const showDate = !(month === messageTime.month && date === messageTime.date);

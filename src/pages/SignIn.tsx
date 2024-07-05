@@ -15,11 +15,11 @@ type SignInFormValues = {
 type ApiResponse = {
   error?: string;
   token?: string;
-  userSQLId?: number;
+  userId?: number;
 };
 
 function SignIn() {
-  const { setToken, setUserSQLId } = useContext(Context) as ContextValue;
+  const { setToken, setUserId } = useContext(Context) as ContextValue;
   const [showLoading, setShowLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -38,14 +38,15 @@ function SignIn() {
   };
 
   async function signIn(data: SignInFormValues) {
+    console.log("kkkkk");
     const response = await api.post<ApiResponse>("/users/sign-in", data);
     if (response.error) handleServerError(response);
-    if (response.token && response.userSQLId) handleSuccess(response);
+    if (response.token && response.userId) handleSuccess(response);
   }
 
   function handleSuccess(response: ApiResponse) {
     setToken(String(response.token));
-    setUserSQLId(Number(response.userSQLId));
+    if (response.userId) setUserId(response.userId);
     setShowLoading(false);
     navigate("/");
   }
@@ -68,7 +69,7 @@ function SignIn() {
         }`}
       >
         <img
-          className="fixed -z-10 -top-6 bg-transparent -right-4 -rotate-[120deg]  h-2/5 max-h-32  md:max-h-none "
+          className="fixed -z-10 -top-6 bg-transparent -right-4 -rotate-[120deg] hidden xs:block  h-2/5 max-h-32  md:max-h-none "
           src="\rose3.png"
           alt=""
         />

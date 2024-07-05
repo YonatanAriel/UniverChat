@@ -6,22 +6,30 @@ const SignIn = lazy(() => import("../pages/SignIn"));
 const SignUp = lazy(() => import("../pages/SignUp"));
 import Welcome from "../pages/Welcome";
 import Home from "../pages/Home";
+import Loading from "../components/ui/Loading";
 
 function MainRoutes() {
-  const { userName } = useContext(Context) as ContextValue;
+  const { userId } = useContext(Context) as ContextValue;
+
   return (
     <Routes>
       <Route
         path="/"
         element={
-          userName ? <Home /> : <a href="/welcome">Start using UniverChat!</a>
+          userId ? <Home /> : <a href="/welcome">Start using UniverChat!</a>
         }
       />
       <Route path="/welcome" element={<Welcome />} />
       <Route
         path="sign-in"
         element={
-          <Suspense fallback={"Loading..."}>
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center w-full h-full">
+                <Loading />
+              </div>
+            }
+          >
             <SignIn />
           </Suspense>
         }
@@ -29,7 +37,13 @@ function MainRoutes() {
       <Route
         path="sign-up"
         element={
-          <Suspense fallback={"Loading..."}>
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center w-full h-full">
+                <Loading />
+              </div>
+            }
+          >
             <SignUp />
           </Suspense>
         }

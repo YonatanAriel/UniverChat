@@ -14,12 +14,12 @@ import { useNavigate } from "react-router-dom";
 type ApiResponse = {
   error?: string;
   token?: string;
-  userSQLId?: number;
+  userId?: number;
 };
 
 function SignUp() {
   //email? with google?
-  const { setToken, setUserSQLId } = useContext(Context) as ContextValue;
+  const { setToken, setUserId } = useContext(Context) as ContextValue;
   const [showLoading, setShowLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -46,13 +46,13 @@ function SignUp() {
       "Content-Type": "multipart/form-data",
     });
     if (response?.error) handleServerError(response);
-    if (response?.token && response?.userSQLId) handleSuccess(response);
+    if (response?.token && response?.userId) handleSuccess(response);
   }
 
   function handleSuccess(response: ApiResponse) {
     console.log(response.token);
     setToken(String(response.token));
-    setUserSQLId(Number(response.userSQLId));
+    setUserId(Number(response.userId));
     setShowLoading(false);
     navigate("/");
   }
@@ -74,7 +74,7 @@ function SignUp() {
       }`}
     >
       <img
-        className="fixed -z-10 -top-6 bg-transparent -right-4 -rotate-[120deg]  h-2/5 max-h-32  md:max-h-none "
+        className="fixed -z-10 -top-6 bg-transparent hidden xs:block -right-4 -rotate-[120deg]  h-2/5 max-h-32  md:max-h-none "
         src="\rose7.png"
         alt=""
       />
