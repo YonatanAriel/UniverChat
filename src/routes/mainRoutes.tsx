@@ -1,25 +1,44 @@
-import { useContext, lazy, Suspense } from "react";
-import { Routes, Route } from "react-router-dom";
+import { useContext, lazy, Suspense, useEffect } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { Context } from "../context/ContextProvider";
 import { ContextValue } from "../types/contextValue";
 const SignIn = lazy(() => import("../pages/SignIn"));
 const SignUp = lazy(() => import("../pages/SignUp"));
-import Welcome from "../pages/Welcome";
+const NotFound = lazy(() => import("../pages/NotFound"));
+const Welcome = lazy(() => import("../pages/Welcome"));
 import Home from "../pages/Home";
 import Loading from "../components/ui/Loading";
 
 function MainRoutes() {
-  const { userId } = useContext(Context) as ContextValue;
+  const { userId, token } = useContext(Context) as ContextValue;
+  useEffect(() => console.log(token), [token]);
 
   return (
     <Routes>
       <Route
         path="/"
         element={
-          userId ? <Home /> : <a href="/welcome">Start using UniverChat!</a>
+          userId || token ? <Home /> : <Navigate to="/welcome" replace />
         }
       />
-      <Route path="/welcome" element={<Welcome />} />
+      <Route
+        path="/welcome"
+        element={
+          token ? (
+            <NotFound />
+          ) : (
+            <Suspense
+              fallback={
+                <div className="flex items-center justify-center w-full h-full">
+                  <Loading />
+                </div>
+              }
+            >
+              <Welcome />
+            </Suspense>
+          )
+        }
+      />
       <Route
         path="sign-in"
         element={
@@ -45,6 +64,20 @@ function MainRoutes() {
             }
           >
             <SignUp />
+          </Suspense>
+        }
+      />
+      <Route
+        path="*"
+        element={
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center w-full h-full">
+                <Loading />
+              </div>
+            }
+          >
+            <NotFound />
           </Suspense>
         }
       />

@@ -1,4 +1,10 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import {
+  useContext,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../context/ContextProvider";
 import { ContextValue } from "../types/contextValue";
@@ -6,12 +12,16 @@ import { getUniqueId } from "../utils/getUniqueId";
 import WelcomeForm from "../components/ui/WelcomeForm";
 
 function Welcome() {
-  const { setUserName, setUserId, setToken } = useContext(
+  const { setUserName, setUserId, token, setToken } = useContext(
     Context
   ) as ContextValue;
   const [error, setError] = useState<null | string>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
+
+  useLayoutEffect(() => {
+    if (token) navigate("/");
+  });
 
   useEffect(() => {
     inputRef.current?.focus();

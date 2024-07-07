@@ -23,6 +23,7 @@ function ChatBox({ room }: PropsType) {
     scrollToBottom(msgContainerRef);
   }, [messages]);
 
+  useEffect(() => console.log(inputText?.trim().length > 0), [inputText]);
   useEffect(() => {
     const handleReceiveMessage = (data: MessageType) => {
       console.log("reserved - " + data);
@@ -76,8 +77,17 @@ function ChatBox({ room }: PropsType) {
           inputValue={inputText}
           sendMessage={sendMessage}
         />
-        <button className="absolute right-0 z-30 h-full pr-4 cursor-auto ">
-          <IoSend className="cursor-pointer" onClick={sendMessage} size={25} />
+        <button
+          disabled={!inputText?.trim()}
+          className={`absolute right-0 z-30 h-full pr-4 cursor-default" `}
+        >
+          <IoSend
+            className={`${
+              inputText?.trim().length > 0 ? "cursor-pointer" : "cursor-default"
+            }`}
+            onClick={sendMessage}
+            size={25}
+          />
         </button>
       </div>
     </div>
