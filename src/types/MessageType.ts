@@ -2,7 +2,7 @@
 
 export type MessageType = {
   id?: number;
-  chatRoomId?: number;
+  chatRoomId?: number | null;
   msgText: string;
   userName?: string;
   timestamp?: Date;

@@ -10,10 +10,11 @@ import { scrollToBottom } from "../../utils/scrollToBottom";
 import { MessageClass } from "../../classes/Message";
 
 type PropsType = {
-  room: string;
+  // room: string;
+  roomId: number | null;
 };
 
-function ChatBox({ room }: PropsType) {
+function ChatBox({ roomId }: PropsType) {
   const { userName, userId } = useContext(Context) as ContextValue;
   const [messages, setMessages] = useState<MessageType[]>([]);
   const [inputText, setInputText] = useState("");
@@ -23,7 +24,6 @@ function ChatBox({ room }: PropsType) {
     scrollToBottom(msgContainerRef);
   }, [messages]);
 
-  useEffect(() => console.log(inputText?.trim().length > 0), [inputText]);
   useEffect(() => {
     const handleReceiveMessage = (data: MessageType) => {
       console.log("reserved - " + data);
@@ -41,7 +41,8 @@ function ChatBox({ room }: PropsType) {
       msgText: inputText,
       userName,
       userId,
-      to: room,
+      // to: room,
+      chatRoomId: roomId,
       isPrivate: false,
     });
 

@@ -85,9 +85,6 @@ function SignIn() {
           `}
             noValidate
           >
-            {/* ${
-             (isSubmitting || showLoading) && "blur-sm"
-          } */}
             <h1 className="mt-3 mb-8 ml-auto mr-auto text-5xl font-bold dark:text-white">
               Sign in
             </h1>

@@ -2,20 +2,21 @@ import { MessageType } from "../types/MessageType";
 
 export class MessageClass {
   id?: number;
-  chatRoomId?: number;
+  chatRoomId?: number | null;
   msgText: string;
   userName?: string;
   timestamp?: Date;
   userId?: number | string | null;
-  to?: string;
+  // to?: string;
   isPrivate?: boolean;
+
   constructor({
     id,
     chatRoomId,
     msgText,
     userName,
     userId,
-    to,
+    // to,
     isPrivate,
   }: MessageType) {
     this.id = id;
@@ -24,7 +25,7 @@ export class MessageClass {
     this.userName = userName;
     this.userId = userId;
     this.timestamp = new Date();
-    this.to = to;
+    // this.to = to;
     this.isPrivate = isPrivate;
   }
 }

@@ -14,6 +14,8 @@ function ContextProvider({ children }: { children: ReactNode }) {
     token ? true : false
   );
 
+  const [messages, setMessages] = useState([]);
+
   useEffect(() => {
     const isTokenExist = !!token;
     setIsUserLoggedIn(isTokenExist);
