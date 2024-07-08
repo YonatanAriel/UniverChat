@@ -8,12 +8,11 @@ type ApiResponse = {
 };
 
 function LoggedInChat() {
-  const roomName = "loggedInPublic";
   const [roomId, setRoomId] = useState<number | null>(null);
 
   const saveRoomInDB = async (): Promise<ApiResponse> => {
     const roomId = await api.post("/chat-rooms/add-chat-room", {
-      name: roomName,
+      name: "loggedInPublic",
     });
     return roomId as ApiResponse;
   };
@@ -23,11 +22,13 @@ function LoggedInChat() {
   }, []);
 
   useEffect(() => {
-    socket.emit("joinRoom", roomName);
+    if (roomId) {
+      socket.emit("joinRoom", roomId);
+    }
     return () => {
-      socket.emit("leaveRoom", roomName);
+      socket.emit("leaveRoom", roomId);
     };
-  }, []);
+  }, [roomId]);
 
   return <ChatBox roomId={roomId} />;
 }

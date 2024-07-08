@@ -9,6 +9,7 @@ export class MessageClass {
   userId?: number | string | null;
   // to?: string;
   isPrivate?: boolean;
+  isLoggedIn?: boolean;
 
   constructor({
     id,
@@ -18,6 +19,7 @@ export class MessageClass {
     userId,
     // to,
     isPrivate,
+    isLoggedIn,
   }: MessageType) {
     this.id = id;
     this.chatRoomId = chatRoomId;
@@ -27,5 +29,6 @@ export class MessageClass {
     this.timestamp = new Date();
     // this.to = to;
     this.isPrivate = isPrivate;
+    this.isLoggedIn = isLoggedIn;
   }
 }

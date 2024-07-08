@@ -9,4 +9,5 @@ export type MessageType = {
   userId?: number | string | null;
   to?: string;
   isPrivate?: boolean;
+  isLoggedIn?: boolean;
 };

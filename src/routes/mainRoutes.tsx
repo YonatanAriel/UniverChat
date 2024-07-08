@@ -1,4 +1,4 @@
-import { useContext, lazy, Suspense, useEffect } from "react";
+import { useContext, lazy, Suspense } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { Context } from "../context/ContextProvider";
 import { ContextValue } from "../types/contextValue";
@@ -11,7 +11,6 @@ import Loading from "../components/ui/Loading";
 
 function MainRoutes() {
   const { userId, token } = useContext(Context) as ContextValue;
-  useEffect(() => console.log(token), [token]);
 
   return (
     <Routes>

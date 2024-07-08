@@ -14,7 +14,7 @@ function ContextProvider({ children }: { children: ReactNode }) {
     token ? true : false
   );
 
-  const [messages, setMessages] = useState([]);
+  // const [messages, setMesages] = useState([]);
 
   useEffect(() => {
     const isTokenExist = !!token;

@@ -15,7 +15,9 @@ type PropsType = {
 };
 
 function ChatBox({ roomId }: PropsType) {
-  const { userName, userId } = useContext(Context) as ContextValue;
+  const { userName, userId, isUserLoggedIn } = useContext(
+    Context
+  ) as ContextValue;
   const [messages, setMessages] = useState<MessageType[]>([]);
   const [inputText, setInputText] = useState("");
   const msgContainerRef = useRef<HTMLUListElement>(null);
@@ -26,7 +28,6 @@ function ChatBox({ roomId }: PropsType) {
 
   useEffect(() => {
     const handleReceiveMessage = (data: MessageType) => {
-      console.log("reserved - " + data);
       setMessages((prevMessages) => [...prevMessages, data]);
     };
     socket.on("receive message", handleReceiveMessage);
@@ -37,6 +38,7 @@ function ChatBox({ roomId }: PropsType) {
 
   const sendMessage = () => {
     if (!inputText?.trim()) return;
+
     const messageData = new MessageClass({
       msgText: inputText,
       userName,
@@ -44,8 +46,8 @@ function ChatBox({ roomId }: PropsType) {
       // to: room,
       chatRoomId: roomId,
       isPrivate: false,
+      isLoggedIn: isUserLoggedIn,
     });
-
     socket.emit("send message", messageData);
     setInputText("");
   };

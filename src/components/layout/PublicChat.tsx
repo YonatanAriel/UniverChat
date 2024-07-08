@@ -3,14 +3,15 @@ import { socket } from "../../socket";
 import ChatBox from "../ui/ChatBox";
 
 function PublicChat() {
+  const roomId = "9999999999999";
   useEffect(() => {
-    socket.emit("joinRoom", "public");
+    socket.emit("joinRoom", roomId);
 
     return () => {
-      socket.emit("leaveRoom", "public");
+      socket.emit("leaveRoom", roomId);
     };
-  }, []);
-  return <ChatBox room={"public"} />;
+  }, [roomId]);
+  return <ChatBox roomId={Number(roomId)} />;
 }
 
 export default PublicChat;
