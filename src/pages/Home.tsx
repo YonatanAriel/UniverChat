@@ -7,6 +7,7 @@ import LoggedInChat from "../components/layout/LoggedInChat";
 
 function Home() {
   const { isUserLoggedIn } = useContext(Context) as ContextValue;
+
   useEffect(() => {
     const handleConnect = () => {
       console.log(socket.id, "user connected");

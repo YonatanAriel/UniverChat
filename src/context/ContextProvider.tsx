@@ -9,7 +9,9 @@ function ContextProvider({ children }: { children: ReactNode }) {
   const [userId, setUserId] = useLocalStorage<number | string | null>(
     "univerChatUserId"
   );
-  const [userName, setUserName] = useState("");
+  const [userName, setUserName] = useLocalStorage<string | null>(
+    "univerChatUserName"
+  );
   const [isUserLoggedIn, setIsUserLoggedIn] = useState<boolean>(
     token ? true : false
   );

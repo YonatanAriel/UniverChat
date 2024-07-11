@@ -1,5 +1,5 @@
 export type ContextValue = {
-  userName: string;
+  userName: string | null;
   setUserName: (value: string) => void;
   token: string | null;
   setToken: (value: string | null) => void;
