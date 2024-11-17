@@ -29,7 +29,7 @@ export const formValidation = {
 };
 
 export const isPhotoFile = (file: FileList): boolean | string => {
-  if (file.length === 0) return "No file choosen";
+  if (file.length === 0) return "No file chosen";
 
   const fileName = file[0].name;
   const allowedExtensions = ["jpg", "png", "gif", "jpeg"];

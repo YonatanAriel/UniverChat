@@ -38,7 +38,6 @@ function SignIn() {
   };
 
   async function signIn(data: SignInFormValues) {
-    console.log("kkkkk");
     const response = await api.post<ApiResponse>("/users/sign-in", data);
     if (response.error) handleServerError(response);
     if (response.token && response.userId) handleSuccess(response);
