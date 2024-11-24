@@ -11,10 +11,14 @@ function Layout() {
     : " movingBackgroundSlow bg-gradient-to-br from-rose-100 via-white to-teal-100 ";
   return (
     <div
-      className={`${backgroundColor} fixed inset-0 ${
-        location === "/sign-up" ? "overflow-y-auto" : ""
-      } `}
+      className={`${backgroundColor} fixed inset-0  ${
+        ["/sign-up", "/sign-in"].includes(location) ? "overflow-y-auto" : ""
+      } 
+      `}
     >
+      {/* ${
+        location === "/sign-up" ? "overflow-y-auto" : ""
+      } */}
       <Navbar />
       <MainRoutes />
     </div>

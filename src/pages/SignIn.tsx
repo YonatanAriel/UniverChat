@@ -80,8 +80,8 @@ function SignIn() {
             encType={"multipart/form-data"}
             onSubmit={handleSubmit(onSubmit, onError)}
             className={`flex flex-col gap-3 px-6 py-11  border-2 w-96 mx-2  border-black rounded-md xl:w-[30%] mt-16 mb-20 bg-gradient-to-b from-emerald-50 to-rose-50 
-           
-          `}
+            
+            `}
             noValidate
           >
             <h1 className="mt-3 mb-8 ml-auto mr-auto text-5xl font-bold dark:text-white">
