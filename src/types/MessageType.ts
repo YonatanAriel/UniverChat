@@ -10,4 +10,5 @@ export type MessageType = {
   to?: string;
   isPrivate?: boolean;
   isLoggedIn?: boolean;
+  userImg?: string;
 };

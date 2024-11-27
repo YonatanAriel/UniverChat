@@ -36,6 +36,8 @@ function ChatBox({ roomId }: PropsType) {
     };
   }, []);
 
+  useEffect(() => console.log(messages), [messages]);
+
   const sendMessage = () => {
     if (!inputText?.trim()) return;
 
@@ -66,6 +68,7 @@ function ChatBox({ roomId }: PropsType) {
         {messages.map((message, i) => (
           <li key={i}>
             <Message
+              userImg={message.userImg}
               msgText={message.msgText}
               userName={message.userName}
               senderId={message.userId}

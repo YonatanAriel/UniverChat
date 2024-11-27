@@ -9,7 +9,7 @@ interface Props extends MessageType {
   senderId: number | string | null | undefined;
 }
 
-function Message({ userName, msgText, senderId, timestamp }: Props) {
+function Message({ userName, msgText, senderId, timestamp, userImg }: Props) {
   const { userId } = useContext(Context) as ContextValue;
   const isRtl = userId === senderId;
   const { date, month } = useMemo(() => getDateData(), []);
@@ -26,11 +26,7 @@ function Message({ userName, msgText, senderId, timestamp }: Props) {
         {/* <div className="absolute top-0 left-0 p-3 text-2xl font-bold border-b-2 border-r-2 bg-gradient-to-tl from-emerald-50 to-rose-50 rounded-tl-md rounded-br-md border-b-black border-r-black ">
            Public chat 
         </div> */}
-        <img
-          className="w-8 h-8 rounded-full"
-          src="https://cdn.wamiz.fr/cdn-cgi/image/format=auto,quality=80,width=400,height=400,fit=cover/user/avatar/60104039ec50e024090406.jpg"
-          alt="Jese image"
-        />
+        <img className="w-8 h-8 rounded-full" src={userImg} alt="User image" />
         <div className="border-black border-2 bg-white flex flex-col z-10   min-w-[40%] md:max-w-[70%] overflow-hidden break-words  leading-1.5 p-4 rounded-e-xl rounded-es-xl ">
           <div className="flex items-center space-x-2 rtl:space-x-reverse">
             <span className="text-sm font-semibold text-gray-900 dark:text-white">
