@@ -27,6 +27,20 @@ function ChatBox({ roomId }: PropsType) {
   }, [messages]);
 
   useEffect(() => {
+    if (roomId) {
+      const handlePrevMessages = (previousMessages: MessageType[]) => {
+        setMessages(previousMessages);
+      };
+
+      socket.on("previous messages", handlePrevMessages);
+
+      return () => {
+        socket.off("previous messages", handlePrevMessages);
+      };
+    }
+  }, [roomId]);
+
+  useEffect(() => {
     const handleReceiveMessage = (data: MessageType) => {
       setMessages((prevMessages) => [...prevMessages, data]);
     };
@@ -35,8 +49,6 @@ function ChatBox({ roomId }: PropsType) {
       socket.off("receive message", handleReceiveMessage);
     };
   }, []);
-
-  useEffect(() => console.log(messages), [messages]);
 
   const sendMessage = () => {
     if (!inputText?.trim()) return;
