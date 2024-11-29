@@ -10,6 +10,7 @@ export class MessageClass {
   // to?: string;
   isPrivate?: boolean;
   isLoggedIn?: boolean;
+  photo?: string;
 
   constructor({
     id,
@@ -20,6 +21,7 @@ export class MessageClass {
     // to,
     isPrivate,
     isLoggedIn,
+    photo,
   }: MessageType) {
     this.id = id;
     this.chatRoomId = chatRoomId;
@@ -30,5 +32,6 @@ export class MessageClass {
     // this.to = to;
     this.isPrivate = isPrivate;
     this.isLoggedIn = isLoggedIn;
+    this.photo = photo;
   }
 }

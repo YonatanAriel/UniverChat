@@ -50,6 +50,8 @@ function ChatBox({ roomId }: PropsType) {
     };
   }, []);
 
+  useEffect(() => console.log(messages), [messages]);
+
   const sendMessage = () => {
     if (!inputText?.trim()) return;
 
@@ -77,7 +79,7 @@ function ChatBox({ roomId }: PropsType) {
         ref={msgContainerRef}
         className="flex flex-col max-h-full gap-1 p-1 overflow-y-auto pb-14 sm:p-6 sm:pb-14"
       >
-        {messages.map((message, i) => (
+        {messages?.map((message, i) => (
           <li key={i}>
             <Message
               userImg={message.userImg}
