@@ -10,6 +10,7 @@ import { createFormData } from "../utils/createFormData";
 import { Context } from "../context/ContextProvider";
 import { ContextValue } from "../types/contextValue";
 import { useNavigate } from "react-router-dom";
+import SelectInput from "../components/ui/selectInput";
 
 type ApiResponse = {
   error?: string;
@@ -90,7 +91,7 @@ function SignUp() {
           }`}
           noValidate
         >
-          <h1 className="mt-3 mb-8 ml-auto mr-auto text-5xl font-bold dark:text-white">
+          <h1 className="mt-3 mb-8 ml-auto mr-auto text-5xl font-bold ">
             Sign up
           </h1>
           <div className="flex flex-col gap-1">
@@ -141,7 +142,9 @@ function SignUp() {
             />
             <p className="text-red-500">{errors.photo?.message}</p>
           </div>
-
+          <SelectInput selectID="languages" labelTxt="what is your language?">
+            <option>ff</option>
+          </SelectInput>
           <button
             type="submit"
             disabled={buttonDisabled}

@@ -29,29 +29,25 @@ function Message({ userName, msgText, senderId, timestamp, userImg }: Props) {
         <img className="w-8 h-8 rounded-full" src={userImg} alt="User image" />
         <div className="border-black border-2 bg-white flex flex-col z-10   min-w-[40%] md:max-w-[70%] overflow-hidden break-words  leading-1.5 p-4 rounded-e-xl rounded-es-xl ">
           <div className="flex items-center space-x-2 rtl:space-x-reverse">
-            <span className="text-sm font-semibold text-gray-900 dark:text-white">
+            <span className="text-sm font-semibold text-gray-900 ">
               {userName}
             </span>
-            <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
+            <span className="text-sm font-normal text-gray-500 ">
               {dateText}
             </span>
           </div>
-          <p className="text-sm font-normal py-2.5 text-gray-900 dark:text-white">
-            {msgText}
-          </p>
-          <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
-            Delivered?
-          </span>
+          <p className="text-sm font-normal py-2.5 text-gray-900 ">{msgText}</p>
+          <span className="text-sm font-normal text-gray-500 ">Delivered?</span>
         </div>
         <button
           id="dropdownMenuIconButton"
           data-dropdown-toggle="dropdownDots"
           data-dropdown-placement="bottom-start"
-          className="inline-flex items-center self-center p-2 text-sm font-medium text-center text-gray-900 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-900 dark:hover:bg-gray-800 dark:focus:ring-gray-600"
+          className="inline-flex items-center self-center p-2 text-sm font-medium text-center text-gray-900 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-50"
           type="button"
         >
           <svg
-            className="w-4 h-4 text-gray-500 dark:text-gray-400"
+            className="w-4 h-4 text-gray-500 "
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             fill="currentColor"
