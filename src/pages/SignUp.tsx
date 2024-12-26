@@ -142,7 +142,11 @@ function SignUp() {
             />
             <p className="text-red-500">{errors.photo?.message}</p>
           </div>
-          <SelectInput selectID="languages" labelTxt="what is your language?">
+          <SelectInput
+            selectID="languages"
+            labelTxt="what is your language?"
+            defaultValue="English"
+          >
             <option>ff</option>
           </SelectInput>
           <button
