@@ -11,5 +11,5 @@ export type MessageType = {
   isPrivate?: boolean;
   isLoggedIn?: boolean;
   userImg?: string;
-  photo: string;
+  photo?: string;
 };
