@@ -10,7 +10,8 @@ import { createFormData } from "../utils/createFormData";
 import { Context } from "../context/ContextProvider";
 import { ContextValue } from "../types/contextValue";
 import { useNavigate } from "react-router-dom";
-import SelectInput from "../components/ui/selectInput";
+import { languages } from "../constants";
+import SelectInput from "../components/ui/SelectInput";
 
 type ApiResponse = {
   error?: string;
@@ -109,7 +110,6 @@ function SignUp() {
             />
             <p className="text-rose-400">{errors.userName?.message}</p>
           </div>
-
           <div className="flex flex-col gap-1 ">
             <label
               htmlFor="password"
@@ -125,7 +125,6 @@ function SignUp() {
             />
             <p className="text-rose-400">{errors.password?.message}</p>
           </div>
-
           <div className="flex flex-col gap-1 ">
             <label
               htmlFor="photo"
@@ -142,13 +141,17 @@ function SignUp() {
             />
             <p className="text-red-500">{errors.photo?.message}</p>
           </div>
-          <SelectInput
-            selectID="languages"
-            labelTxt="what is your language?"
-            defaultValue="English"
-          >
-            <option>ff</option>
-          </SelectInput>
+          <div className="flex flex-col gap-1 ">
+            <SelectInput
+              selectID="languages"
+              labelTxt="Language"
+              defaultValue="English"
+            >
+              {languages.map((lang) => (
+                <option value={lang.code}>{lang.name}</option>
+              ))}
+            </SelectInput>
+          </div>
           <button
             type="submit"
             disabled={buttonDisabled}

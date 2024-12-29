@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { twMerge } from "tailwind-merge";
 
 type Props = {
   selectID: string;
@@ -6,6 +7,8 @@ type Props = {
   labelTxt: string;
   defaultValue?: string;
   handleChange?: () => void;
+  labelStyle?: string;
+  selectStyle?: string;
 };
 
 function SelectInput({
@@ -13,6 +16,8 @@ function SelectInput({
   labelTxt,
   handleChange,
   defaultValue,
+  labelStyle,
+  selectStyle,
   children,
 }: Props) {
   const [selected, setSelected] = useState<string | undefined>(defaultValue);
@@ -24,14 +29,20 @@ function SelectInput({
     <>
       <label
         htmlFor={selectID}
-        className="block mb-2 text-sm font-medium text-black "
+        className={twMerge(
+          "block mb-1 text-sm font-medium text-black ",
+          labelStyle
+        )}
       >
         {labelTxt}
       </label>
       <select
         id={selectID}
         value={selected}
-        className="bg-gray-50  border-black border-2 text-black text-sm rounded-lg block w-full p-2.5 "
+        className={twMerge(
+          " border-black border-2 text-black text-sm rounded-lg block w-full p-2.5 ",
+          selectStyle
+        )}
         onChange={onChange}
       >
         {children}
