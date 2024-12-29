@@ -15,6 +15,7 @@ function ContextProvider({ children }: { children: ReactNode }) {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState<boolean>(
     token ? true : false
   );
+  const [language, setLanguage] = useLocalStorage<string>("language", "en");
 
   // const [messages, setMesages] = useState([]);
 
@@ -32,6 +33,8 @@ function ContextProvider({ children }: { children: ReactNode }) {
     setToken,
     isUserLoggedIn,
     setIsUserLoggedIn,
+    language,
+    setLanguage,
   };
   return <Context.Provider value={contextValue}>{children}</Context.Provider>;
 }

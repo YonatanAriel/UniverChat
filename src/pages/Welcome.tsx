@@ -12,7 +12,7 @@ import { getUniqueId } from "../utils/getUniqueId";
 import WelcomeForm from "../components/ui/WelcomeForm";
 
 function Welcome() {
-  const { setUserName, setUserId, token, setToken } = useContext(
+  const { userName, setUserId, token, setToken } = useContext(
     Context
   ) as ContextValue;
   const [error, setError] = useState<null | string>(null);
@@ -29,15 +29,13 @@ function Welcome() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const inputValue = inputRef.current?.value.trim();
-    if (!inputValue) {
+    if (!userName?.trim()) {
       setError("Please enter your name");
       return;
     }
     navigate("/");
     const uniqueId = getUniqueId();
     setUserId(uniqueId);
-    setUserName(inputValue);
     setToken(null);
   };
 
@@ -48,7 +46,7 @@ function Welcome() {
         src="\rose2.png"
         alt=""
       />
-      <WelcomeForm handleSubmit={handleSubmit} error={error} ref={inputRef} />
+      <WelcomeForm handleSubmit={handleSubmit} error={error} />
     </div>
   );
 }

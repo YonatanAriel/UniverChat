@@ -1,4 +1,6 @@
-export const languages = [
+import { Language } from "./types/Language";
+
+export const languages: Language[] = [
   { name: "English", code: "en" },
   { name: "Arabic", code: "ar" },
   { name: "Chinese", code: "zh" },

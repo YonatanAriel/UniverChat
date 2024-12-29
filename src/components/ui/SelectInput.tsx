@@ -6,7 +6,7 @@ type Props = {
   children: React.ReactNode;
   labelTxt: string;
   defaultValue?: string;
-  handleChange?: () => void;
+  handleChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   labelStyle?: string;
   selectStyle?: string;
 };
@@ -16,14 +16,14 @@ function SelectInput({
   labelTxt,
   handleChange,
   defaultValue,
-  labelStyle,
-  selectStyle,
+  labelStyle = "",
+  selectStyle = "",
   children,
 }: Props) {
   const [selected, setSelected] = useState<string | undefined>(defaultValue);
   const onChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelected(e.target.value);
-    handleChange && handleChange();
+    handleChange && handleChange(e);
   };
   return (
     <>

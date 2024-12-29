@@ -7,4 +7,6 @@ export type ContextValue = {
   setUserId: (value: number | string | null) => void;
   isUserLoggedIn: boolean;
   setIsUserLoggedIn: (value: boolean) => void;
+  language: string;
+  setLanguage: (value: string) => void;
 };
