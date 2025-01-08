@@ -1,7 +1,6 @@
 import axios from "axios";
 import { encodeParams } from "../utils/encodeParams";
 
-//d63a2df64f11442596ff051932ce176f  - apiKey
 type AudiOptions = {
   method: string;
   url: string;
@@ -16,11 +15,11 @@ type AudiOptions = {
 const options: AudiOptions = {
   method: "POST",
   url: "https://voicerss-text-to-speech.p.rapidapi.com/",
-  params: { key: "d63a2df64f11442596ff051932ce176f", b64: true },
+  params: { key: import.meta.env.VOICE_RSS_API_KEY, b64: true },
   headers: {
     "content-type": "application/x-www-form-urlencoded",
-    "X-RapidAPI-Key": "8be7d08215msh45d28e3d9c633e3p109efajsn0dad38837480",
-    "X-RapidAPI-Host": "voicerss-text-to-speech.p.rapidapi.com",
+    "X-RapidAPI-Key": import.meta.env.RAPID_API_KEY,
+    "X-RapidAPI-Host": import.meta.env.VOICE_RSS_API_HOST,
   },
 };
 
